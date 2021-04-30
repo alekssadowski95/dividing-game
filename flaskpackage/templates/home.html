@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container col-md-6">
-    <!-- Note cards -->
-    {% for note in notes %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{ note.title }}</h5>
-                <p class="card-text">{{ note.text }}</p>
-            </div>
-        </div>
-    {% endfor %}
+<div class="text-center">
+    <form style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto;">
+        <img class="mb-4" src="{{ url_for('static', filename='wizard.png') }}" alt="" width="144" height="144">
+        <h1 class="h3 mb-5 font-weight-normal">Löse folgende Aufgabe:</h1>
+        <h2 class="h3 mb-3 font-weight-normal">232424 : 34 = </h2>
+        <label for="inputEmail" class="sr-only">Lösung</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Lösung" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Fertig!</button>
+    </form>
+    <ul class="list-group container col-md-3 mt-5">
+        <li class="list-group-item">Streak: 3</li>
+    </ul>
+    <p class="mt-5 mb-3 text-muted">&copy; Aleksander Sadowski 2021</p>
 </div>
+
+
 {% endblock content %}
