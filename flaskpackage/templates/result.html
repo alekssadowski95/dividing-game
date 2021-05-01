@@ -9,15 +9,33 @@
         <div class="mb-5 mt-3" style="font-size: 3.4rem; font-weight: bold; color:green">+{{ win_score }}</div> 
         <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Neue Herausforderung</a>
     </div>
+    <audio src="..\static\gold-prize-04-sound-effect-61322022.mp3" id="my_audio"></audio>
+    <script type="text/javascript">
+        window.onload=function(){
+        document.getElementById("my_audio").play();
+        }
+    </script>
 </div>
 {% endif %}
 {% if result=='WRONG!' %}
 <div class="pt-5 pb-5" style="background-color:#1C2244;">
     <div class="text-center" style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto; "> 
         <img class="" src="{{ url_for('static', filename='dizzy.png') }}" alt="" width="144" height="144">
-        <div class="mb-5 mt-3" style="font-size: 2rem; color:white">Ups...</div>
+        <div class="mb-3 mt-2" style="font-size: 1.8rem; color:white">Ups...</div>
+        <ul class="list-group container mb-5" >
+            <li class="list-group-item" style="background-color:#212952;">
+                <h2 style="font-size: 1.6rem; color:white">{{ dividend }} : {{ divisor }} = {{ result_value }}</h2>
+            </li>
+        </ul>       
+        <div class="mb-5" style="font-size: 3.6rem; font-weight: bold; color:lightgray">-10</div> 
         <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Neue Herausforderung</a>
     </div>
+    <audio src="..\static\Clang-and-wobble.mp3" id="my_audio"></audio>
+    <script type="text/javascript">
+        window.onload=function(){
+        document.getElementById("my_audio").play();
+        }
+    </script>
 </div>
 {% endif %}
 {% endblock content %}

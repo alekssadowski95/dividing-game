@@ -27,6 +27,9 @@ def create_random_division_task(difficulty):
     elif difficulty == 5:
         min_value = 10000
         max_value = 99999
+    elif difficulty == 10:
+        min_value = 1000000
+        max_value = 9999999
     divisor = randrange(2, 9)
     result = randrange(min_value, max_value)
     dividend = result * divisor
@@ -40,9 +43,9 @@ def get_difficulty():
         difficulty = 3
     if value > 60 and value <= 90:
         difficulty = 4
-    if value > 90 and value <= 95:
+    if value > 90 and value <= 99:
         difficulty = 5
-    if value > 95 and value <= 100:
+    if value == 100:
         difficulty = 10
     return difficulty
 
@@ -78,6 +81,8 @@ def home():
             session['DIFFICULTY'] = 1 
         if 'SCORE' not in session: 
             session['SCORE'] = 0
+        if 'WIN_SCORE' not in session: 
+            session['WIN_SCORE'] = 0
         if 'DIVISION_CREATED' not in session: 
             session['DIVISION_CREATED'] = False
         if session['DIVISION_CREATED'] == False:
@@ -93,13 +98,14 @@ def home():
             session['SCORE'] = session['SCORE'] + session['WIN_SCORE']
             return redirect(url_for('result', result='CORRECT!'))
         else:
+            session['SCORE'] = session['SCORE'] - 10
             return redirect(url_for('result', result='WRONG!'))      
     return render_template('home.html', dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result=session['RESULT'], difficulty=session['DIFFICULTY'], form=form, score=session['SCORE'])
 
 @app.route('/result/<result>', methods=['GET'])
 def result(result):
     session['DIVISION_CREATED'] = False
-    return render_template('result.html', result=result, score=session['SCORE'], win_score=session['WIN_SCORE'])
+    return render_template('result.html', result=result, score=session['SCORE'], win_score=session['WIN_SCORE'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result_value=session['RESULT'])
 
 @app.route('/credits', methods=['GET'])
 def credits():
