@@ -4,15 +4,15 @@
 <div class="text-center pt-3" style="background-color:#1C2244;">
     <form method='POST' action="" enctype="multipart/form-data" style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto;">
         {{ form.hidden_tag() }}
-        {% if difficulty < 3 %}
+        {% if difficulty == 3 %}
             <h1 class="h3 mb-5 font-weight-normal" style="font-size: large; color:lightgray">Schlage die Maus im Rechenduell!</h1>
             <img class="" src="{{ url_for('static', filename='rat.png') }}" alt="" width="144" height="144">   
         {% endif %}  
-        {% if difficulty == 3 %}
+        {% if difficulty == 4 %}
             <h1 class="h3 mb-5 font-weight-normal" style="font-size: large; color:lightgray">Schlage den Magier im Rechenduell!</h1>
             <img class="" src="{{ url_for('static', filename='wizard.png') }}" alt="" width="144" height="144">   
         {% endif %}
-        {% if (difficulty > 3) and (difficulty < 10) %}
+        {% if (difficulty == 5) %}
             <h1 class="h3 mb-5 font-weight-normal" style="font-size: large; color:lightgray">Schlage den Drachen im Rechenduell!</h1>
             <img class="" src="{{ url_for('static', filename='dragon.png') }}" alt="" width="144" height="144">
         {% endif %}
