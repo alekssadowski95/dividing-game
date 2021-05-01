@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if result=='CORRECT!' %}
+<div style="background-color: yellowgreen;">
+    <div class="text-center" style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto; ">     
+        <img class="" src="{{ url_for('static', filename='treasure.png') }}" alt="" width="144" height="144">
+        <div class="mb-5 mt-3" style="font-size: 2rem; font-weight: bold; color:green">RICHTIG!</div> 
+        <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Neue Herausforderung</a>
+    </div>
+</div>
+{% endif %}
+{% if result=='WRONG!' %}
+<div style="background-color: white;">
+    <div class="text-center" style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto; "> 
+        <img class="" src="{{ url_for('static', filename='dizzy.png') }}" alt="" width="144" height="144">
+        <div class="mb-5 mt-3" style="font-size: 2rem; color:black">Ups...</div>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Neue Herausforderung</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

@@ -1,10 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField 
-from wtforms.fields import TextAreaField
-from wtforms.validators import DataRequired, Length
+from wtforms import IntegerField, SubmitField 
+from wtforms.validators import DataRequired
 
 
-class AddNoteForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(min=2, max=50)])
-    text = TextAreaField('Text', validators=[DataRequired(), Length(min=2, max=500)])
-    submit = SubmitField('Add')
+class checkResultForm(FlaskForm):
+    result = IntegerField('', validators=[DataRequired()])
+    submit = SubmitField('Go!')
