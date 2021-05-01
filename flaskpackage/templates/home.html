@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="text-center">
+<div class="text-center pt-3" style="background-color:#1C2244;">
     <form method='POST' action="" enctype="multipart/form-data" style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto;">
         {{ form.hidden_tag() }}
+        <h1 class="h3 mb-5 font-weight-normal" style="font-size: large; color:lightgray">Schlage den Magier im Rechenduell!</h1>
         <img class="" src="{{ url_for('static', filename='wizard.png') }}" alt="" width="144" height="144">
-        <ul class="list-group container mb-5">
-            <li class="list-group-item">SKILL: {{ skill }}</li>
+        <ul class="list-group container mb-5" >
+            <li class="list-group-item" style="background-color:#212952; color: white">Herausforderungsstufe: {{ difficulty }}</li>
         </ul>
-        <h1 class="h3 mb-3 font-weight-normal" style="font-size: large;">Besiege den Magier indem du folgende Aufgabe löst:</h1>
-        <h2 class="h3 mb-1 font-weight-normal" style="font-size: 3rem; font-weight: bold;">{{ dividend }} : {{ divisor }} = </h2>
+        
+        <h2 class="h3 mb-1 font-weight-normal" style="font-size: 3rem; font-weight: bold;color:white">{{ dividend }} : {{ divisor }} = </h2>
         <div class="form-group">
             <div>{{ form.result.label() }}</div>
-            <div>{{ form.result(class="form-control") }}</div>
+            <div>{{ form.result(class="form-control", placeholder="Lösung", style="min-height:60px; font-size:1.6rem;") }}</div>
             {% if form.result.errors %}
                 {% for error in form.result.errors %}
                     <span class="text-danger">{{ error }}</span></br>
@@ -20,7 +21,8 @@
             {% endif %}
         </div>
         <div>{{ form.submit(class="btn btn-primary btn-lg") }}</div>
-        <p class="mt-5 mb-3 text-muted">&copy; Aleksander Sadowski 2021</p>
+        <p class="mt-5 mb-0 text-muted">&copy; Aleksander Sadowski 2021</p>
+        <a class="mt-5 mb-3 text-muted" href="{{ url_for('credits') }}">Credits</a>
     </form>
     
 </div>
