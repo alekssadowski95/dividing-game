@@ -4,3 +4,4 @@ sqlalchemy
 wtforms
 flask_sqlalchemy
 gunicorn
+psycopg2
