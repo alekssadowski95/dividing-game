@@ -28,9 +28,9 @@
         <!-- Navbar -->
         <nav class="navbar navbar-light theme-color-custom fixed-top" style="padding-top: 12px;">
             <!-- Brand -->
-            <a class="navbar-brand" href="{{ url_for('home') }}">
+            <a class="navbar-brand" href="{{ url_for('home') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zur Hauptseite">
                 <img src="{{ url_for('static', filename='division.png') }}" width="30" height="30" class="d-inline-block align-top" style="margin-top: 2px;" alt=""></img>
-                <div class="text-center ml-1 mb-2" style="display:inline; font-weight: bold; font-size:1.4rem; color:white" data-bs-toggle="tooltip" data-bs-placement="top" title="Zur Hauptseite">{{ nickname }} </div>
+                <div class="text-center ml-1 mb-2" style="display:inline; font-weight: bold; font-size:1.4rem; color:white">{{ nickname }} </div>
             </a>
             <!-- Navbar buttons (on the right) -->
             <div>
