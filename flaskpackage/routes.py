@@ -131,7 +131,7 @@ def highscore():
     return render_template('highscore.html', score=session['SCORE'], nickname=session['NICKNAME'], scores=scores, uuid=session['UUID'])
 
 def init_player(nickname):
-    session['UUID'] = secrets.token_hex(32)
+    session['UUID'] = secrets.token_hex(16)
     session['SCORE'] = 0
     session['NICKNAME'] = nickname
     session['NICKNAME_DEFINED'] = True
