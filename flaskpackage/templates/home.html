@@ -21,7 +21,7 @@
             <img class="" src="{{ url_for('static', filename='cthulhu.png') }}" alt="" width="144" height="144">
         {% endif %}
         <ul class="list-group container mb-5" >
-            <li class="list-group-item" style="background-color:#212952; color: white">Herausforderung: Stufe {{ difficulty }}</li>
+            <li class="list-group-item" style="background-color:#212952; color: white" data-bs-toggle="tooltip" data-bs-placement="top" title="Zeigt die Schwierigkeit der Herausforderung an.">Herausforderung: Stufe {{ difficulty }}</li>
         </ul>
         
         <h2 class="h3 mb-0 font-weight-normal" style="font-size:3rem; font-weight:bold; color:white">{{ dividend }} : {{ divisor }} = </h2>
@@ -35,8 +35,8 @@
             {% endif %}
         </div>
         <div>{{ form.submit(class="btn btn-primary btn-lg", style="min-height:60px; width:100%") }}</div>  
-            <p class="mt-5 mb-0 text-muted">&copy; Aleksander Sadowski 2021</p>
-            <a class="mt-5 mb-3 text-muted" href="{{ url_for('credits') }}">Credits</a>
+            <p class="mt-5 mb-0 text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Entwickler">&copy; Aleksander Sadowski 2021</p>
+            <a class="mt-5 mb-3 text-muted" href="{{ url_for('credits') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Anerkennungen">Credits</a>
     </form>    
 </div>
 <audio src="..\static\mixkit-fantasy-game-sweep-notification-255.wav" id="my_audio"></audio>
