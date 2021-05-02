@@ -37,8 +37,8 @@
   <form method='POST' action="" enctype="multipart/form-data" autocomplete="off">
     {{ form.hidden_tag() }}
     <span>
-      <img class="mb-4 mr-2" src="{{ url_for('static', filename='division.png') }}" alt="" width="72" height="72">
-      <h1 style="display: inline; color: white; font-size: 2rem;">DivisionQuest</h1>
+      <img class="mr-2 mb-2" src="{{ url_for('static', filename='division-with-dragon.png') }}" alt="" width="72" height="144">
+      <h1 style="color: white; font-size: 2.6rem; margin-bottom: 40px;">DivisionQuest</h1>
     </span>
     <fieldset class="form-group mt-3">
         <div class="form-group">          
@@ -49,7 +49,7 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <div>{{ form.submit(class="w-100 btn btn-lg btn-primary") }}</div>
+        <div>{{ form.submit(class="w-100 btn btn-lg btn-primary", style="min-height:60px;") }}</div>
     </fieldset>
     <p class="mt-5 mb-0 text-muted">&copy; Aleksander Sadowski 2021</p>
     <a class="mt-5 mb-3 text-muted" href="{{ url_for('credits') }}">Credits</a>

@@ -10,8 +10,15 @@
         <div class="mt-3" style="font-size: 1.8rem; font-weight: bold; color:green">RICHTIG!</div> 
         <div class="mb-5 mt-3" style="font-size: 3.4rem; color:green; font-weight: bold">+{{ win_score }}</div> 
         <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Neue Herausforderung</a>
-    </div>
-    <audio src="..\static\gold-prize-04-sound-effect-61322022.mp3" id="my_audio"></audio>
+    </div>  
+    {% if difficulty == 10 %}
+        <audio src="..\static\mixkit-choir-magic-shine-658.wav" id="my_audio"></audio>
+    {% elif difficulty == 5 %}
+        <audio src="..\static\mixkit-fantasy-game-success-notification-270.wav" id="my_audio"></audio>
+    {% else %}
+        <audio src="..\static\gold-prize-04-sound-effect-61322022.mp3" id="my_audio"></audio>
+    {% endif %}
+    
     <script type="text/javascript">
         window.onload=function(){
         document.getElementById("my_audio").play();
@@ -29,7 +36,7 @@
                 <h2 style="font-size: 1.6rem; color:white">{{ dividend }} : {{ divisor }} = {{ result_value }}</h2>
             </li>
         </ul>       
-        <div class="mb-5" style="font-size: 3.6rem; font-weight: bold; color:lightgray">-10</div> 
+        <div class="mb-5" style="font-size: 3.6rem; font-weight: bold; color:lightgray">-50</div> 
         <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Neue Herausforderung</a>
     </div>
     <audio src="..\static\Clang-and-wobble.mp3" id="my_audio"></audio>

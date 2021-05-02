@@ -99,7 +99,7 @@ def home():
                 session['SCORE'] = session['SCORE'] + session['WIN_SCORE']
                 return redirect(url_for('result', result='CORRECT!'))
             else:
-                session['SCORE'] = session['SCORE'] - 10
+                session['SCORE'] = session['SCORE'] - 50
                 return redirect(url_for('result', result='WRONG!'))      
         return render_template('home.html', nickname=session['NICKNAME'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result=session['RESULT'], difficulty=session['DIFFICULTY'], form=form, score=session['SCORE'])
     else:
@@ -108,7 +108,7 @@ def home():
 @app.route('/result/<result>', methods=['GET'])
 def result(result):
     session['DIVISION_CREATED'] = False
-    return render_template('result.html', result=result, nickname=session['NICKNAME'], score=session['SCORE'], win_score=session['WIN_SCORE'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result_value=session['RESULT'])
+    return render_template('result.html', result=result, nickname=session['NICKNAME'], score=session['SCORE'], win_score=session['WIN_SCORE'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result_value=session['RESULT'], difficulty=session['DIFFICULTY'])
 
 @app.route('/credits', methods=['GET'])
 def credits():
@@ -116,8 +116,12 @@ def credits():
 
 @app.route('/nickname', methods=['GET', 'POST'])
 def nickname():
+    if 'NICKNAME_DEFINED' in session and session['NICKNAME_DEFINED'] == True:
+        return redirect(url_for('home'))
     form = EnterNicknameForm()
-    if form.validate_on_submit():       
+    if form.validate_on_submit():  
+        if 'NICKNAME_DEFINED' in session and session['NICKNAME_DEFINED'] == True:
+            return redirect(url_for('home'))     
         session['NICKNAME'] = form.nickname.data
         session['NICKNAME_DEFINED'] = True
         return redirect(url_for('home'))

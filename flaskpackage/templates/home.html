@@ -24,7 +24,7 @@
             <li class="list-group-item" style="background-color:#212952; color: white">Herausforderung: Stufe {{ difficulty }}</li>
         </ul>
         
-        <h2 class="h3 mb-1 font-weight-normal" style="font-size: 3rem; font-weight: bold;color:white">{{ dividend }} : {{ divisor }} = </h2>
+        <h2 class="h3 mb-0 font-weight-normal" style="font-size:3rem; font-weight:bold; color:white">{{ dividend }} : {{ divisor }} = </h2>
         <div class="form-group">
             <div>{{ form.result.label() }}</div>
             <div>{{ form.result(class="form-control", placeholder="Lösung", style="min-height:60px; font-size:1.4rem;") }}</div>
@@ -34,9 +34,15 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <div>{{ form.submit(class="btn btn-primary btn-lg") }}</div>  
+        <div>{{ form.submit(class="btn btn-primary btn-lg", style="min-height:60px; width:100%") }}</div>  
             <p class="mt-5 mb-0 text-muted">&copy; Aleksander Sadowski 2021</p>
             <a class="mt-5 mb-3 text-muted" href="{{ url_for('credits') }}">Credits</a>
     </form>    
 </div>
+<audio src="..\static\mixkit-fantasy-game-sweep-notification-255.wav" id="my_audio"></audio>
+<script type="text/javascript">
+    window.onload=function(){
+    document.getElementById("my_audio").play();
+    }
+</script>
 {% endblock content %}
