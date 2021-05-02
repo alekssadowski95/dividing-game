@@ -9,6 +9,8 @@
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+           <!-- Favicon -->
+           <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='division.png') }}">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -38,7 +40,8 @@
     {{ form.hidden_tag() }}
     <span>
       <img class="mr-2 mb-2" src="{{ url_for('static', filename='division-with-dragon.png') }}" alt="" width="72" height="144">
-      <h1 style="color: white; font-size: 2.6rem; margin-bottom: 40px;">DivisionQuest</h1>
+      <h1 style="color: white; font-size: 2.6rem; margin-bottom: 30px;">DivisionQuest</h1>
+      <h2 class="text-muted" style="font-size: 1.4rem; margin-bottom: 20px;">Wilkommen</h2>
     </span>
     <fieldset class="form-group mt-3">
         <div class="form-group">          
