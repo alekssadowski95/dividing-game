@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, session, request
 from flaskpackage import app, db
-from flaskpackage.forms import checkResultForm
+from flaskpackage.forms import CheckResultForm, EnterNicknameForm
 from random import randrange
 
 
@@ -75,38 +75,50 @@ def get_score():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    form = checkResultForm()
-    if request.method == 'GET':
-        if 'DIFFICULTY' not in session: 
-            session['DIFFICULTY'] = 1 
-        if 'SCORE' not in session: 
-            session['SCORE'] = 0
-        if 'WIN_SCORE' not in session: 
-            session['WIN_SCORE'] = 0
-        if 'DIVISION_CREATED' not in session: 
-            session['DIVISION_CREATED'] = False
-        if session['DIVISION_CREATED'] == False:
-            session['DIFFICULTY'] = get_difficulty()
-            division_task = create_random_division_task(session['DIFFICULTY'])
-            session['DIVIDEND'] = division_task.dividend
-            session['DIVISOR'] = division_task.divisor
-            session['RESULT'] = division_task.result
-            session['DIVISION_CREATED'] = True
-    if form.validate_on_submit():
-        if int(form.result.data) == session['RESULT']:
-            session['WIN_SCORE'] = get_score()
-            session['SCORE'] = session['SCORE'] + session['WIN_SCORE']
-            return redirect(url_for('result', result='CORRECT!'))
-        else:
-            session['SCORE'] = session['SCORE'] - 10
-            return redirect(url_for('result', result='WRONG!'))      
-    return render_template('home.html', dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result=session['RESULT'], difficulty=session['DIFFICULTY'], form=form, score=session['SCORE'])
+    if 'NICKNAME_DEFINED' in session and session['NICKNAME_DEFINED'] == True:
+        form = CheckResultForm()
+        if request.method == 'GET':
+            if 'DIFFICULTY' not in session: 
+                session['DIFFICULTY'] = 1 
+            if 'SCORE' not in session: 
+                session['SCORE'] = 0
+            if 'WIN_SCORE' not in session: 
+                session['WIN_SCORE'] = 0
+            if 'DIVISION_CREATED' not in session: 
+                session['DIVISION_CREATED'] = False
+            if session['DIVISION_CREATED'] == False:
+                session['DIFFICULTY'] = get_difficulty()
+                division_task = create_random_division_task(session['DIFFICULTY'])
+                session['DIVIDEND'] = division_task.dividend
+                session['DIVISOR'] = division_task.divisor
+                session['RESULT'] = division_task.result
+                session['DIVISION_CREATED'] = True
+        if form.validate_on_submit():
+            if int(form.result.data) == session['RESULT']:
+                session['WIN_SCORE'] = get_score()
+                session['SCORE'] = session['SCORE'] + session['WIN_SCORE']
+                return redirect(url_for('result', result='CORRECT!'))
+            else:
+                session['SCORE'] = session['SCORE'] - 10
+                return redirect(url_for('result', result='WRONG!'))      
+        return render_template('home.html', nickname=session['NICKNAME'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result=session['RESULT'], difficulty=session['DIFFICULTY'], form=form, score=session['SCORE'])
+    else:
+        return redirect(url_for('nickname'))
 
 @app.route('/result/<result>', methods=['GET'])
 def result(result):
     session['DIVISION_CREATED'] = False
-    return render_template('result.html', result=result, score=session['SCORE'], win_score=session['WIN_SCORE'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result_value=session['RESULT'])
+    return render_template('result.html', result=result, nickname=session['NICKNAME'], score=session['SCORE'], win_score=session['WIN_SCORE'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result_value=session['RESULT'])
 
 @app.route('/credits', methods=['GET'])
 def credits():
-    return render_template('credits.html', score=session['SCORE'])
+    return render_template('credits.html', score=session['SCORE'], nickname=session['NICKNAME'],)
+
+@app.route('/nickname', methods=['GET', 'POST'])
+def nickname():
+    form = EnterNicknameForm()
+    if form.validate_on_submit():       
+        session['NICKNAME'] = form.nickname.data
+        session['NICKNAME_DEFINED'] = True
+        return redirect(url_for('home'))
+    return render_template('nickname.html', form=form)

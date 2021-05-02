@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="text-center pt-3" style="background-color:#1C2244;">
-    <form method='POST' action="" enctype="multipart/form-data" style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto;">
+    <form method='POST' action="" enctype="multipart/form-data" style="width: 100%; max-width: 330px; padding: 15px; margin: 0 auto;" autocomplete="off">
         {{ form.hidden_tag() }}
         {% if difficulty == 3 %}
             <h1 class="h3 mb-5 font-weight-normal" style="font-size: large; color:lightgray">Schlage die Maus im Rechenduell!</h1>
@@ -35,8 +35,8 @@
             {% endif %}
         </div>
         <div>{{ form.submit(class="btn btn-primary btn-lg") }}</div>  
-        <p class="mt-5 mb-0 text-muted">&copy; Aleksander Sadowski 2021</p>
-        <a class="mt-5 mb-3 text-muted" href="{{ url_for('credits') }}">Credits</a>
+            <p class="mt-5 mb-0 text-muted">&copy; Aleksander Sadowski 2021</p>
+            <a class="mt-5 mb-3 text-muted" href="{{ url_for('credits') }}">Credits</a>
     </form>    
 </div>
 {% endblock content %}

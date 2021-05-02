@@ -34,8 +34,11 @@
             </a>
             <!-- Navbar buttons (on the right) -->
             <div>
-                <span><div class="text-center" style="display:inline; font-weight: bold; font-size:1.4rem; color:yellowgreen">{{ score }} </div><img src="{{ url_for('static', filename='idea.png') }}" width="30" height="30" class="d-inline-block align-top" alt=""></img></span>
-                
+                <span>
+                    <div class="text-center" style="display:inline; font-weight: bold; font-size:1.4rem; color:white">{{ score }} </div>
+                    <img src="{{ url_for('static', filename='star.png') }}" width="30" height="30" class="d-inline-block align-top" alt=""></img>
+                    <div class="text-center ml-2" style="display:inline; font-weight: bold; font-size:1.4rem; color:white">{{ nickname }} </div>
+                </span>              
             </div>       
         </nav>
         
