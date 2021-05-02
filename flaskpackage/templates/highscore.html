@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="container mb-3 text-center" style="color: white">Highscore</h1>
+<div class="container col-md-6 text-center">
+    <table class="table table-borderless" style="color: white">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Punkte</th>
+                <th scope="col">Datum</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores %}
+                {% if score.uuid == uuid %}
+                    <tr style="background-color:#394996;">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ score.nickname }}</td>
+                        <td>{{ score.score }}</td>
+                        <td>{{ score.played_date }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ score.nickname }}</td>
+                        <td>{{ score.score }}</td>
+                        <td>{{ score.played_date }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

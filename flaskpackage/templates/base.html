@@ -15,7 +15,7 @@
         {% if title %}
             <title>{{ title }} | DivisionQuest</title>
         {% else %}
-            <title>DivisionQuest</title>
+            <title>{{ nickname }} | DivisionQuest</title>
         {% endif %}
 
         <!-- Favicon -->
@@ -26,18 +26,20 @@
     </head>
     <body style="background-color:#1C2244;">
         <!-- Navbar -->
-        <nav class="navbar navbar-light theme-color-custom fixed-top">
+        <nav class="navbar navbar-light theme-color-custom fixed-top" style="padding-top: 12px;">
             <!-- Brand -->
             <a class="navbar-brand" href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='division.png') }}" width="30" height="30" class="d-inline-block align-top" alt=""></img>
-                <div style="display: inline; color:white">DivisionQuest</div> 
+                <img src="{{ url_for('static', filename='division.png') }}" width="30" height="30" class="d-inline-block align-top" style="margin-top: 2px;" alt=""></img>
+                <div class="text-center ml-1 mb-2" style="display:inline; font-weight: bold; font-size:1.4rem; color:white">{{ nickname }} </div>
             </a>
             <!-- Navbar buttons (on the right) -->
             <div>
                 <span>
-                    <div class="text-center" style="display:inline; font-weight: bold; font-size:1.4rem; color:white">{{ score }} </div>
-                    <img src="{{ url_for('static', filename='star.png') }}" width="30" height="30" class="d-inline-block align-top" alt=""></img>
-                    <div class="text-center ml-2" style="display:inline; font-weight: bold; font-size:1.4rem; color:white">{{ nickname }} </div>
+                    <div class="" style="display:inline; font-weight: bold; font-size:1.4rem; color:white">{{ score }} </div>
+                    <img src="{{ url_for('static', filename='star.png') }}" width="30" height="30" class="d-inline-block align-top mr-3" alt=""></img>
+                    <a href="{{ url_for('highscore') }}">
+                        <img src="{{ url_for('static', filename='list.png') }}" width="30" height="30" class="d-inline-block align-top" alt=""></img>
+                    </a>
                 </span>              
             </div>       
         </nav>

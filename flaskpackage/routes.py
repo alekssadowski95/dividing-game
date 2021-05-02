@@ -1,7 +1,10 @@
 from flask import render_template, redirect, url_for, session, request
 from flaskpackage import app, db
+from flaskpackage.models import Score
 from flaskpackage.forms import CheckResultForm, EnterNicknameForm
+from sqlalchemy import desc
 from random import randrange
+import secrets
 
 
 class DivisionTask():
@@ -95,11 +98,19 @@ def home():
                 session['DIVISION_CREATED'] = True
         if form.validate_on_submit():
             if int(form.result.data) == session['RESULT']:
+                session['LAST_ENTRY'] = int(form.result.data)
                 session['WIN_SCORE'] = get_score()
                 session['SCORE'] = session['SCORE'] + session['WIN_SCORE']
+                current_score = Score.query.filter_by(uuid=session['UUID']).first()
+                current_score.score = session['SCORE']
+                db.session.commit()
                 return redirect(url_for('result', result='CORRECT!'))
             else:
+                session['LAST_ENTRY'] = form.result.data
                 session['SCORE'] = session['SCORE'] - 50
+                current_score = Score.query.filter_by(uuid=session['UUID']).first()
+                current_score.score = session['SCORE']
+                db.session.commit()
                 return redirect(url_for('result', result='WRONG!'))      
         return render_template('home.html', nickname=session['NICKNAME'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result=session['RESULT'], difficulty=session['DIFFICULTY'], form=form, score=session['SCORE'])
     else:
@@ -108,11 +119,26 @@ def home():
 @app.route('/result/<result>', methods=['GET'])
 def result(result):
     session['DIVISION_CREATED'] = False
-    return render_template('result.html', result=result, nickname=session['NICKNAME'], score=session['SCORE'], win_score=session['WIN_SCORE'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result_value=session['RESULT'], difficulty=session['DIFFICULTY'])
+    return render_template('result.html', result=result, last_entry=session['LAST_ENTRY'], nickname=session['NICKNAME'], score=session['SCORE'], win_score=session['WIN_SCORE'], dividend=session['DIVIDEND'], divisor=session['DIVISOR'], result_value=session['RESULT'], difficulty=session['DIFFICULTY'])
 
 @app.route('/credits', methods=['GET'])
 def credits():
     return render_template('credits.html', score=session['SCORE'], nickname=session['NICKNAME'],)
+
+@app.route('/highscore', methods=['GET'])
+def highscore():
+    scores = Score.query.order_by(desc(Score.score)).all()
+    return render_template('highscore.html', score=session['SCORE'], nickname=session['NICKNAME'], scores=scores, uuid=session['UUID'])
+
+def init_player(nickname):
+    session['UUID'] = secrets.token_hex(32)
+    session['SCORE'] = 0
+    session['NICKNAME'] = nickname
+    session['NICKNAME_DEFINED'] = True
+
+def commit_to_db(score):
+    db.session.add(score)
+    db.session.commit()
 
 @app.route('/nickname', methods=['GET', 'POST'])
 def nickname():
@@ -121,8 +147,9 @@ def nickname():
     form = EnterNicknameForm()
     if form.validate_on_submit():  
         if 'NICKNAME_DEFINED' in session and session['NICKNAME_DEFINED'] == True:
-            return redirect(url_for('home'))     
-        session['NICKNAME'] = form.nickname.data
-        session['NICKNAME_DEFINED'] = True
+            return redirect(url_for('home')) 
+        init_player(form.nickname.data)
+        score = Score(uuid=session['UUID'], score=session['SCORE'], nickname=session['NICKNAME'])
+        commit_to_db(score)
         return redirect(url_for('home'))
     return render_template('nickname.html', form=form)
