@@ -73,7 +73,7 @@ def get_score():
     if session['DIFFICULTY'] == 9:
         score = 10000 
     if session['DIFFICULTY'] == 10:
-        score = 25000 
+        score = 2000 
     return score
 
 @app.route('/', methods=['GET', 'POST'])
